@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffie-Hellman Key Exchange</title>
+    <script>
+        function generateKeys() {
+            var prime = parseInt(document.getElementById("prime").value);
+            var base = parseInt(document.getElementById("base").value);
+            var privateA = parseInt(document.getElementById("private-a").value);
+            var privateB = parseInt(document.getElementById("private-b").value);
+
+            var publicA = Math.pow(base, privateA) % prime;
+            var publicB = Math.pow(base, privateB) % prime;
+
+            var sharedKeyA = Math.pow(publicB, privateA) % prime;
+            var sharedKeyB = Math.pow(publicA, privateB) % prime;
+
+            document.getElementById("public-a").innerHTML = publicA;
+            document.getElementById("public-b").innerHTML = publicB;
+            document.getElementById("shared-key-a").innerHTML = sharedKeyA;
+            document.getElementById("shared-key-b").innerHTML = sharedKeyB;
+        }
+    </script>
+</head>
+<body>
+    <h1>Diffie-Hellman Key Exchange</h1>
+    <div>
+        <label for="prime">Prime Number (p):</label>
+        <input type="text" id="prime">
+    </div>
+    <div>
+        <label for="base">Base Number (g):</label>
+        <input type="text" id="base">
+    </div>
+    <div>
+        <label for="private-a">Alice's Private Key (a):</label>
+        <input type="text" id="private-a">
+    </div>
+    <div>
+        <label for="private-b">Bob's Private Key (b):</label>
+        <input type="text" id="private-b">
+    </div>
+    <button onclick="generateKeys()">Generate Keys</button>
+
+    <h2>Alice's Public Key (A): <span id="public-a"></span></h2>
+    <h2>Bob's Public Key (B): <span id="public-b"></span></h2>
+    <h2>Alice's Shared Key: <span id="shared-key-a"></span></h2>
+    <h2>Bob's Shared Key: <span id="shared-key-b"></span></h2>
+</body>
+</html>
